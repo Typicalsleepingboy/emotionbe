@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "name": "Emotion",
+    "builds": [{ "src": "./server.js", "use": "@vercel/node" }],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/"
+      }
+    ]
+  }
+  

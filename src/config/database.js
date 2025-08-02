@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      // Remove or comment out any authMechanism if present
-      // authMechanism: 'SCRAM-SHA-256',
-    });
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error('Database connection error:', error);
-    process.exit(1);
-  }
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+        });
+        console.log('MongoDB Connected Successfully gan');
+    } catch (error) {
+        console.error('MongoDB Connection Error', error);
+        process.exit(1);
+    }
 };
 
 module.exports = connectDB;

@@ -1,5 +1,5 @@
 // backend/src/middlewares/errorHandler.js
-import config from '../config/index.js';
+import config from '../config/config.js';
 
 const globalErrorHandler = (err, req, res, next) => {
   // Log error, misalnya ke console atau service logging eksternal

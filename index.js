@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import connectDB from './src/config/database.js';
 import mainRouter from './src/routes/index.js';
 import globalErrorHandler from './src/middlewares/errorHandler.js';
-import config from './src/config/index.js';
+import config from './src/config/config.js';
 
 const app = express();
 

@@ -1,6 +1,6 @@
 // backend/src/config/database.js
 import mongoose from 'mongoose';
-import config from './index.js';
+import config from './config.js';
 
 const connectDB = async () => {
   if (!config.mongodbUri) {

@@ -1,7 +1,7 @@
 // backend/src/controllers/authController.js
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import config from '../config/index.js';
+import config from '../config/config.js';
 import { validationResult } from 'express-validator';
 
 // Fungsi untuk generate JWT

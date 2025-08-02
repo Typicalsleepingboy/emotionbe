@@ -1,7 +1,7 @@
 // backend/src/middlewares/authMiddleware.js
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import config from '../config/index.js';
+import config from '../config/config.js';
 
 export const protect = async (req, res, next) => {
   let token;

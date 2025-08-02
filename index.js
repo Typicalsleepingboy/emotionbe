@@ -1,11 +1,11 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import connectDB from './src/config/database.js';
-import mainRouter from './src/routes/index.js';
-import globalErrorHandler from './src/middlewares/errorHandler.js';
-import config from './src/config/config.js';
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const connectDB = require('./src/config/database.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const mainRouter = require('./src/routes/index.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const globalErrorHandler = require('./src/middlewares/errorHandler.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const config = require('./src/config/config.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 app.use(globalErrorHandler);
 
 // ✅ Export untuk Vercel
-export default app;
+module.exports = app;
 
 // ✅ Untuk lokal (opsional)
 if (process.env.NODE_ENV !== 'production') {

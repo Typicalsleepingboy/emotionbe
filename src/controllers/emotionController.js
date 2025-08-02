@@ -1,13 +1,13 @@
 // backend/src/controllers/emotionController.js
-import EmotionLog from '../models/EmotionLog.js';
-import { validationResult } from 'express-validator';
+const EmotionLog = require('../models/EmotionLog.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const { validationResult } = require('express-validator');
 
 /**
  * @desc    Log a new emotion detection entry
  * @route   POST /api/emotions/log
  * @access  Private (memerlukan token pengguna atau API Key)
  */
-export const logEmotionDetection = async (req, res, next) => {
+const logEmotionDetection = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -63,7 +63,7 @@ export const logEmotionDetection = async (req, res, next) => {
  * @route   GET /api/emotions/logs
  * @access  Private (Admin atau pemilik data)
  */
-export const getAllEmotionLogs = async (req, res, next) => {
+const getAllEmotionLogs = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -77,7 +77,6 @@ export const getAllEmotionLogs = async (req, res, next) => {
       // Jika admin dan ada query userId, filter berdasarkan itu
       filter.userId = req.query.userId;
     }
-
 
     const logs = await EmotionLog.find(filter)
       .sort({ createdAt: -1 })
@@ -108,7 +107,7 @@ export const getAllEmotionLogs = async (req, res, next) => {
  * @route   GET /api/emotions/logs/:id
  * @access  Private (Admin atau pemilik log)
  */
-export const getEmotionLogById = async (req, res, next) => {
+const getEmotionLogById = async (req, res, next) => {
   try {
     const log = await EmotionLog.findById(req.params.id);
 
@@ -144,7 +143,7 @@ export const getEmotionLogById = async (req, res, next) => {
  * @route   PATCH /api/emotions/logs/:id/feedback
  * @access  Private (pemilik log atau admin)
  */
-export const updateEmotionLogFeedback = async (req, res, next) => {
+const updateEmotionLogFeedback = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -197,4 +196,12 @@ export const updateEmotionLogFeedback = async (req, res, next) => {
       }
     next(error);
   }
+};
+
+// Export menggunakan CommonJS
+module.exports = {
+  logEmotionDetection,
+  getAllEmotionLogs,
+  getEmotionLogById,
+  updateEmotionLogFeedback,
 };

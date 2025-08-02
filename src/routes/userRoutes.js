@@ -1,13 +1,13 @@
 // backend/src/routes/userRoutes.js
-import express from 'express';
-import { body, param } from 'express-validator';
-import {
+const  express = require('express');
+const   { body, param } = require('express-validator'); // Import body dan param dari express-validator
+const {
   getUserProfile,
   updateUserProfile,
   getAllUsers,
   deleteUser,
-} from '../controllers/userController.js';
-import { protect, authorize } from '../middlewares/authMiddleware.js'; // Middleware autentikasi & otorisasi
+} = require('../controllers/userController.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const { protect, authorize } = require('../middlewares/authMiddleware.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
 
 const router = express.Router();
 
@@ -67,4 +67,4 @@ router.put('/:id', protect, idParamValidationRule, updateProfileValidationRules,
 // @access  Private/Admin
 router.delete('/:id', protect, authorize(['admin']), idParamValidationRule, deleteUser);
 
-export default router;
+module.exports = router;

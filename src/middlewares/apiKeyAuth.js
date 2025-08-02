@@ -1,5 +1,5 @@
 // backend/src/middlewares/apiKeyAuth.js
-import config from '../config/index.js';
+const config = require('../config/config.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
 
 const apiKeyAuth = (req, res, next) => {
   const apiKey = req.headers['x-api-key'];
@@ -20,4 +20,4 @@ const apiKeyAuth = (req, res, next) => {
   next();
 };
 
-export default apiKeyAuth;
+module.exports = apiKeyAuth;

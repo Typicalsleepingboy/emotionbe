@@ -1,14 +1,17 @@
 // backend/src/routes/emotionRoutes.js
-import express from 'express';
-import { body, param } from 'express-validator';
-import {
+const express = require('express');
+const { body, param } = require('express-validator');
+
+// PERBAIKAN: Gunakan require() yang benar
+const {
   logEmotionDetection,
   getAllEmotionLogs,
   getEmotionLogById,
   updateEmotionLogFeedback,
-} from '../controllers/emotionController.js';
-// import apiKeyAuth from '../middlewares/apiKeyAuth.js'; // Bisa tetap digunakan jika ada endpoint khusus API key
-import { protect, authorize } from '../middlewares/authMiddleware.js';
+} = require('../controllers/emotionController.js');
+
+const { protect } = require('../middlewares/authMiddleware.js');
+// const apiKeyAuth = require('../middlewares/apiKeyAuth.js');
 
 const router = express.Router();
 
@@ -35,7 +38,6 @@ const updateFeedbackValidationRules = [
 // Validasi parameter ID
 const idParamValidationRule = param('id').isMongoId().withMessage('Invalid log ID format.');
 
-
 // --- Rute untuk Log Emosi ---
 
 // POST /api/emotions/log - Menyimpan log deteksi emosi baru
@@ -55,5 +57,4 @@ router.get('/logs/:id', protect, idParamValidationRule, getEmotionLogById);
 // Dilindungi, dan otorisasi (admin atau pemilik) ada di controller.
 router.patch('/logs/:id/feedback', protect, idParamValidationRule, updateFeedbackValidationRules, updateEmotionLogFeedback);
 
-
-export default router;
+module.exports = router;

@@ -1,5 +1,5 @@
 // backend/src/middlewares/errorHandler.js
-import config from '../config/config.js';
+const config = require('../config/config.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
 
 const globalErrorHandler = (err, req, res, next) => {
   // Log error, misalnya ke console atau service logging eksternal
@@ -31,4 +31,4 @@ const globalErrorHandler = (err, req, res, next) => {
   res.status(statusCode).json(errorResponse);
 };
 
-export default globalErrorHandler;
+module.exports = globalErrorHandler;

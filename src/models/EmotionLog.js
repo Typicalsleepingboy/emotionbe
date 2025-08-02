@@ -1,5 +1,5 @@
 // backend/src/models/EmotionLog.js
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const EmotionLogSchema = new mongoose.Schema(
   {
@@ -68,4 +68,4 @@ const EmotionLogSchema = new mongoose.Schema(
 
 const EmotionLog = mongoose.model('EmotionLog', EmotionLogSchema);
 
-export default EmotionLog;
+module.exports = EmotionLog;

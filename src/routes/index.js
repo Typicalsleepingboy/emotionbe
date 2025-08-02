@@ -1,8 +1,8 @@
 // backend/src/routes/index.js
-import express from 'express';
-import emotionRoutes from './emotionRoutes.js';
-import authRoutes from './authRoutes.js'; // Impor rute auth
-import userRoutes from './userRoutes.js'; // Impor rute user
+const express = require('express');
+const emotionRoutes = require('./emotionRoutes.js'); // Impor rute emosi
+const authRoutes = require('./authRoutes.js'); // Impor rute autentikasi
+const userRoutes = require('./userRoutes.js'); // Impor rute pengguna
 
 const router = express.Router();
 
@@ -24,4 +24,5 @@ router.use('/users', userRoutes);
 // Rute untuk emosi
 router.use('/emotions', emotionRoutes);
 
-export default router;
+
+module.exports = router;

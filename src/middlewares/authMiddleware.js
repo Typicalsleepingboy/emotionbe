@@ -1,9 +1,9 @@
 // backend/src/middlewares/authMiddleware.js
-import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
-import config from '../config/config.js';
+const jwt = require('jsonwebtoken');
+const User = require('../models/User.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const config = require('../config/config.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
 
-export const protect = async (req, res, next) => {
+ const protect = async (req, res, next) => {
   let token;
 
   if (
@@ -39,7 +39,7 @@ export const protect = async (req, res, next) => {
 };
 
 // Middleware untuk otorisasi berdasarkan peran
-export const authorize = (roles = []) => {
+ const authorize = (roles = []) => {
   // roles bisa berupa string tunggal (misalnya 'admin') atau array string (misalnya ['admin', 'editor'])
   if (typeof roles === 'string') {
     roles = [roles];
@@ -60,4 +60,9 @@ export const authorize = (roles = []) => {
     }
     next();
   };
+};
+
+module.exports = {
+  protect,
+  authorize,
 };

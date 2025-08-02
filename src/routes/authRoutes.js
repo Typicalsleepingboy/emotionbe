@@ -1,8 +1,8 @@
 // backend/src/routes/authRoutes.js
-import express from 'express';
-import { body } from 'express-validator';
-import { registerUser, loginUser, getMe } from '../controllers/authController.js';
-import { protect } from '../middlewares/authMiddleware.js'; // Middleware untuk melindungi rute getMe
+const express = require('express');
+const { body } = require('express-validator');
+const { registerUser, loginUser, getMe } = require('../controllers/authController.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const { protect } = require('../middlewares/authMiddleware.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
 
 const router = express.Router();
 
@@ -37,4 +37,4 @@ router.post('/login', loginValidationRules, loginUser);
 router.get('/me', protect, getMe);
 
 
-export default router;
+module.exports = router;

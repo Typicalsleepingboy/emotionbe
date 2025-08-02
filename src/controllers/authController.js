@@ -1,8 +1,8 @@
 // backend/src/controllers/authController.js
-import User from '../models/User.js';
-import jwt from 'jsonwebtoken';
-import config from '../config/config.js';
-import { validationResult } from 'express-validator';
+const User = require('../models/User.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const jwt = require('jsonwebtoken');
+const config = require('../config/config.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const { validationResult } = require('express-validator');
 
 // Fungsi untuk generate JWT
 const generateToken = (id, role) => {
@@ -16,7 +16,7 @@ const generateToken = (id, role) => {
  * @route   POST /api/auth/register
  * @access  Public
  */
-export const registerUser = async (req, res, next) => {
+const registerUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -68,7 +68,7 @@ export const registerUser = async (req, res, next) => {
  * @route   POST /api/auth/login
  * @access  Public
  */
-export const loginUser = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -106,7 +106,7 @@ export const loginUser = async (req, res, next) => {
  * @route   GET /api/auth/me
  * @access  Private (memerlukan token)
  */
-export const getMe = async (req, res, next) => {
+const getMe = async (req, res, next) => {
     // req.user akan di-set oleh middleware authMiddleware
     if (!req.user) {
         const error = new Error('Not authorized, no token found or token invalid.');
@@ -128,4 +128,10 @@ export const getMe = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getMe,
 };

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Backend for E-MOTION application",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
@@ -19,7 +18,6 @@
   "author": "E-MOTION Team",
   "license": "ISC",
   "dependencies": {
-    "@mongodb-js/saslprep": "^1.1.5",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

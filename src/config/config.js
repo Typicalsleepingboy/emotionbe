@@ -1,21 +1,6 @@
 // backend/src/config/index.js
-import dotenv from 'dotenv';
-import path from 'path'; // Untuk path yang lebih robust jika diperlukan
-import { fileURLToPath } from 'url'; // Untuk path yang lebih robust jika diperlukan
-
-// Cara standar dan paling umum: dotenv akan mencari .env di direktori kerja saat ini.
-// Jika server.js dijalankan dari direktori 'backend/', maka ia akan mencari 'backend/.env'.
+const dotenv = require('dotenv'); // Import dotenv untuk mengelola variabel lingkungan
 dotenv.config();
-
-// // Alternatif: Jika Anda ingin lebih eksplisit dan file .env ada di root project (satu level di atas backend)
-// // const __filename = fileURLToPath(import.meta.url);
-// // const __dirname = path.dirname(__filename);
-// // dotenv.config({ path: path.resolve(__dirname, '../../../.env') }); // Sesuaikan jika .env ada di root project utama
-
-// // Alternatif lain: Jika .env benar-benar ada di root DARI DIREKTORI BACKEND
-// // const __filename = fileURLToPath(import.meta.url);
-// // const __dirname = path.dirname(__filename);
-// // dotenv.config({ path: path.resolve(__dirname, '../../.env') }); // Ini yang Anda miliki sebelumnya, pastikan .env ada di D:\KERJA\Bantu Teman\E-MOTION\.env
 
 const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
@@ -39,4 +24,4 @@ if (missingEnvVars.length > 0) {
   process.exit(1);
 }
 
-export default config;
+module.exports = config;

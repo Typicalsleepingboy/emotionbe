@@ -1,13 +1,13 @@
 // backend/src/controllers/userController.js
-import User from '../models/User.js';
-import { validationResult } from 'express-validator';
+const User = require('../models/User.js'); // Pastikan path ini sesuai dengan struktur proyek Anda
+const { validationResult } = require('express-validator');
 
 /**
  * @desc    Get user profile
  * @route   GET /api/users/profile/:id  (atau /api/users/profile/me jika untuk user yang login)
  * @access  Private (atau Public jika profil publik)
  */
-export const getUserProfile = async (req, res, next) => {
+ const getUserProfile = async (req, res, next) => {
   try {
     // Jika :id adalah 'me', gunakan req.user.id dari token
     const userId = req.params.id === 'me' && req.user ? req.user.id : req.params.id;
@@ -46,7 +46,7 @@ export const getUserProfile = async (req, res, next) => {
  * @route   PUT /api/users/profile/:id (atau /api/users/profile/me)
  * @access  Private (hanya pemilik profil)
  */
-export const updateUserProfile = async (req, res, next) => {
+ const updateUserProfile = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -128,7 +128,7 @@ export const updateUserProfile = async (req, res, next) => {
  * @route   GET /api/users
  * @access  Private (Admin)
  */
-export const getAllUsers = async (req, res, next) => {
+ const getAllUsers = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page, 10) || 1;
         const limit = parseInt(req.query.limit, 10) || 20;
@@ -159,7 +159,7 @@ export const getAllUsers = async (req, res, next) => {
  * @route   DELETE /api/users/:id
  * @access  Private (Admin)
  */
-export const deleteUser = async (req, res, next) => {
+ const deleteUser = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.id);
 
@@ -190,4 +190,11 @@ export const deleteUser = async (req, res, next) => {
           }
         next(error);
     }
+};
+
+module.exports = {
+    getUserProfile,
+    updateUserProfile,
+    getAllUsers,
+    deleteUser,
 };

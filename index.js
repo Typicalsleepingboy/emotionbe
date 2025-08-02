@@ -1,4 +1,3 @@
-// server.js
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -10,49 +9,36 @@ import config from './src/config/config.js';
 
 const app = express();
 
-// Koneksi ke Database
+// Koneksi ke database
 connectDB();
 
-// Middleware Keamanan
+// Middleware
 app.use(helmet());
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key']
-}));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 
-// Middleware Parsing
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Logger HTTP
-if (config.nodeEnv === 'development' || process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-} else {
-  app.use(morgan('combined'));
-}
-
-// Routing Utama
+// Routing
 app.use('/api', mainRouter);
 
-// Handler 404
+// 404 handler
 app.use((req, res, next) => {
-  const error = new Error(`Resource not found at ${req.originalUrl}`);
+  const error = new Error(`Not Found: ${req.originalUrl}`);
   error.statusCode = 404;
   next(error);
 });
 
-// Handler Global Error
+// Error handler
 app.use(globalErrorHandler);
 
-// ✅ Export default app untuk Vercel
+// ✅ Export untuk Vercel
 export default app;
 
-// ✅ Jalankan server jika di lokal
+// ✅ Untuk lokal (opsional)
 if (process.env.NODE_ENV !== 'production') {
   const PORT = config.port || 3000;
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
-    console.log(`MongoDB: ${config.mongodbUri ? 'OK' : 'NOT LOADED'}`);
   });
 }
